@@ -1,0 +1,22 @@
+<html>
+
+  <head>
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+  </head>
+
+  <body>
+    <div class="container" style="width: 330px;">
+      <form class="form-signin" method="post" action="/login_action/">
+          <h2 class="form-signin-heading">活动管理系统</h2>
+            <label for="inputUsername" class="sr-only">Username</label>
+              <input name="username" type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+            <label for="inputPassword" class="sr-only">Password</label>
+              <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+              <p style="color:red">{{error}}</p> <br>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- {% load staticfiles %} -->
+
+    <div class="container theme-showcase" role="main">
+    <img src="{% static "img/adient.png" %}" style="width: 300px;"/>
+    <!--签到表单-->
+    <div class="row" style="margin-top: 80px;margin-left: 10px;">
+        <div class="page-header">
+            <h3 style="margin-left: 0px;"> 延锋安道拓{{ event_name }}签到 </h3>
+        </div>
+
+        <div class="col-md-12" style="width: 800px;">
+
+            <!-- 不指定action默认由自己来处理 -->
+          <form class="form-horizontal" role="form" method="post" style="margin-left: 50px;">
+
+            <div class="form-group">
+              <label for="firstname" class="col-sm-2 control-label">姓名:</label>
+              <div class="col-sm-10">
+                {{ form.realname }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="lastname" class="col-sm-2 control-label">工号:</label>
+              <div class="col-sm-10">
+                {{ form.empno }}
+              </div>
+            </div>
+
+            <div class="form-group" style="display: none;">
+                <label for="lastname" class="col-sm-2 control-label">设备:</label>
+                <div class="col-sm-10">
+                  {{ form.user_agent }}
+                </div>
+              </div>
+
+            <div class="form-group">
+              <label for="lastname" class="col-sm-2 control-label"></label>
+              <div class="col-sm-10">
+                <p style="color:green">{{ success }}</p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary btn-lg"  style="width: 198px;">签到</button>
+              </div>
+            </div>
+
+          </form>
+
+      </div>
+    </div>
+    <!-- <script src="../static/js/fingerprint2.min.js"></script>
+    <script src="../static/js/md5.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.1.0/fingerprint2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.min.js" integrity="sha256-J9IhvkIJb0diRVJOyu+Ndtg41RibFkF8eaA60jdjtB8=" crossorigin="anonymous"></script>
+    <script>
+      // 同样的机器和浏览器navigator.userAgent会有重复
+      // console.log(navigator.userAgent);
+      // 使用新的方法获取uuid
+      Fingerprint2.get((components) => {
+        // components.splice(components.findIndex(i => i.key === 'deviceMemory'), 1) // remove device_memory have a difference by ip
+        components.splice(components.findIndex(i => i.key === 'userAgent'), 1) // remove userAgent
+        // components.splice(components.findIndex(i => i.key === 'platform'), 1) // remove platform
+        var uuid = md5(JSON.stringify(components));
+        console.log(uuid);
+        document.getElementById('id_user_agent').value=uuid;
+        // document.querySelector("#id_user_agent").textContent = uuid;
+      }
+      )
+      // 获取浏览器的标识并赋值给隐藏的DIV存储
+      // document.getElementById('id_user_agent').value=uuid;
+    </script>
+
+{% endblock %}

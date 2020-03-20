@@ -1,0 +1,21 @@
+FROM python:v3.6.9
+ 
+RUN apt-get update \
+    && apt-get install -y libmysqlclient-dev \
+    && apt-get install -y --no-install-recommends \
+        postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
+ 
+VOLUME ["/home/leon/Documents/Python/my_signin/mysignin"]
+WORKDIR /mysignin
+
+COPY uwsgi.ini ./
+
+COPY requirements.txt ./
+RUN pip3 install -r requirements.txt
+
+COPY run.sh ./
+RUN chmod 777 run.sh
+
+EXPOSE 8000
+# CMD ["./run.sh"]

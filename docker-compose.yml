@@ -1,0 +1,26 @@
+version: '3'
+services:
+  webapp:
+    image: hr_signin:v1.0
+    network_mode: "host"
+    ports:
+      - "8000:8000"
+    volumes:
+      - "/home/leon/Documents/Python/my_signin/mysignin/:/data/wwwroot/mysignin/"
+    environment:
+      - TZ=Asia/Shanghai
+      - LANG=en_US.UTF-8
+    depends_on:
+      - nginx
+    command: ["./run.sh"]
+  nginx:
+    image: nginx:v1.14
+    network_mode: "host"
+    ports:
+      - "8090:8090"
+    volumes:
+      - "/home/leon/Documents/Python/my_signin/mysignin/:/usr/share/nginx/mysignin/"
+      - "/home/leon/Documents/Python/my_signin/mysignin/:/usr/share/nginx/hr_signin/"
+    environment:
+      - TZ=Asia/Shanghai
+      - LANG=en_US.UTF-8

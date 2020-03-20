@@ -1,0 +1,8 @@
+{% load qr_code %}
+<div style="margin-top: 100px;margin-left: 550px;">
+    {% qr_from_text baseurl size="H" %}
+</div>
+<div style="margin-left: 750px;">{{ baseurl }}</div>
+<!-- <div>{{ event_id }}</div>
+<div>{{ request.get_host}}</div>
+<div>"http://" + {{ request.get_host}} +"/sign_index/" + {{ event_id }} + "/"</div> -->

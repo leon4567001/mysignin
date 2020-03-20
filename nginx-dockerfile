@@ -1,0 +1,25 @@
+FROM  ubuntu:16.04
+ 
+ 
+RUN apt-get update
+RUN apt-get install gcc -y
+RUN apt-get install g++ -y
+RUN apt-get install make -y
+RUN apt-get install wget -y
+ 
+RUN wget http://nginx.org/download/nginx-1.14.0.tar.gz && wget https://ftp.pcre.org/pub/pcre/pcre-8.37.tar.gz
+ 
+#RUN cd /usr/local && mkdir src
+RUN tar -xvf nginx-1.14.0.tar.gz -C /usr/local/src && tar -xvf pcre-8.37.tar.gz -C /usr/local/src
+ 
+WORKDIR /usr/local/src/nginx-1.14.0/
+RUN ./configure --prefix=/usr/local/nginx --without-http_gzip_module --with-pcre=/usr/local/src/pcre-8.37 && make && make install
+ADD nginx.conf /usr/local/nginx/conf/
+ 
+ 
+VOLUME ["/usr/share/nginx/hr_signin/static/"]
+ENV PATH /usr/local/nginx/sbin:$PATH
+ 
+EXPOSE 80 8090 8000
+ 
+ENTRYPOINT ["nginx"]
