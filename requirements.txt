@@ -5,5 +5,5 @@ PyMySQL==0.9.3
 pytz==2019.3
 qrcode==6.1
 six==1.13.0
-sqlparse==0.3.0
+sqlparse==0.4.4
 uWSGI==2.0.18
